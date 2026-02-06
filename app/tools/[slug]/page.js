@@ -292,7 +292,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
                         <span className="text-xs text-gray-500">{item.tip}</span>
                       </div>
                     </div>
-                    <CopyButton text={item.title} field={`title-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} copyToClipboard={copyToClipboard} copiedField={copiedField} />
+                    <CopyButton text={item.title} field={`title-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} />
                   </div>
                 </div>
               ))}
@@ -308,7 +308,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
                         <span className="text-xs text-gray-500">{item.bestFor}</span>
                       </div>
                     </div>
-                    <CopyButton text={item.hook} field={`hook-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} copyToClipboard={copyToClipboard} copiedField={copiedField} />
+                    <CopyButton text={item.hook} field={`hook-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} />
                   </div>
                 </div>
               ))}
