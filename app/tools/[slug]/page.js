@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { toolsConfig } from '@/lib/generators'
 import { Button } from '@/components/ui/button'
@@ -24,8 +25,9 @@ const toolIcons = {
   'analytics-tracker': BarChart3,
 }
 
-export default function ToolPage({ params }) {
-  const { slug } = use(params)
+export default function ToolPage() {
+  const params = useParams()
+  const slug = params.slug
   const tool = toolsConfig[slug]
   
   const [user, setUser] = useState(null)
