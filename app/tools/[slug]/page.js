@@ -563,6 +563,8 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
                   <CopyButton 
                     text={result.chapters?.map(c => `${c.time} - ${c.title}`).join('\n')} 
                     field="seo-chapters" 
+                    copyToClipboard={copyToClipboard}
+                    copiedField={copiedField}
                   />
                 </div>
                 <div className="space-y-2">
