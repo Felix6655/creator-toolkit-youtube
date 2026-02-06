@@ -252,9 +252,9 @@ export default function ToolPage() {
   )
 }
 
-// Results display component
-function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
-  const CopyButton = ({ text, field }) => (
+// CopyButton component moved outside to avoid recreation during render
+function CopyButton({ text, field, copyToClipboard, copiedField }) {
+  return (
     <Button
       variant="ghost"
       size="sm"
@@ -264,6 +264,10 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
       {copiedField === field ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
     </Button>
   )
+}
+
+// Results display component
+function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
 
   if (slug === 'title-hook') {
     return (
