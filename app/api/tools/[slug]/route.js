@@ -5,6 +5,13 @@ import { toolsConfig } from '@/lib/generators'
 
 const FREE_DAILY_LIMIT = 3
 
+// Check if Supabase is properly configured
+const isSupabaseConfigured = () => {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  return url && key && url.startsWith('http')
+}
+
 export async function POST(request, { params }) {
   try {
     const { slug } = params
@@ -23,7 +30,7 @@ export async function POST(request, { params }) {
       }
     }
     
-    // Initialize Supabase client
+    // Initialize Supabase client only if configured
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
     
@@ -31,7 +38,7 @@ export async function POST(request, { params }) {
     let profile = null
     let remainingUses = null
     
-    if (supabaseUrl && supabaseAnonKey) {
+    if (isSupabaseConfigured()) {
       const cookieStore = cookies()
       const supabase = createClient(supabaseUrl, supabaseAnonKey, {
         cookies: {
