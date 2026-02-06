@@ -401,6 +401,8 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
                 <CopyButton 
                   text={result.chapters?.map(c => `${c.time} ${c.title}`).join('\n')} 
                   field="chapters" 
+                  copyToClipboard={copyToClipboard}
+                  copiedField={copiedField}
                 />
               </div>
               <div className="text-sm text-gray-300 font-mono space-y-1">
