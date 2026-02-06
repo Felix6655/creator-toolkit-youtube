@@ -107,7 +107,7 @@ export async function POST(request, { params }) {
     const output = tool.generator(input)
     
     // Save to history if user is logged in
-    if (user && supabaseUrl && supabaseAnonKey) {
+    if (user && isSupabaseConfigured()) {
       const cookieStore = cookies()
       const supabase = createClient(supabaseUrl, supabaseAnonKey, {
         cookies: {
