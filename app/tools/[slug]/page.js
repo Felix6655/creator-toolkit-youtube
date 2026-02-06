@@ -292,7 +292,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
                         <span className="text-xs text-gray-500">{item.tip}</span>
                       </div>
                     </div>
-                    <CopyButton text={item.title} field={`title-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} />
+                    <CopyButton text={item.title} field={`title-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} copyToClipboard={copyToClipboard} copiedField={copiedField} />
                   </div>
                 </div>
               ))}
@@ -308,7 +308,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
                         <span className="text-xs text-gray-500">{item.bestFor}</span>
                       </div>
                     </div>
-                    <CopyButton text={item.hook} field={`hook-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} />
+                    <CopyButton text={item.hook} field={`hook-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} copyToClipboard={copyToClipboard} copiedField={copiedField} />
                   </div>
                 </div>
               ))}
@@ -340,7 +340,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
                 <div key={i} className="p-2 bg-gray-900 rounded-lg">
                   <div className="flex items-center justify-between">
                     <span className="text-red-400 text-sm font-medium">{el.type}</span>
-                    <CopyButton text={el.content} field={`intro-${i}`} />
+                    <CopyButton text={el.content} field={`intro-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} />
                   </div>
                   <p className="text-white text-sm mt-1">{el.content}</p>
                   <p className="text-gray-500 text-xs mt-1">💡 {el.tips}</p>
@@ -362,7 +362,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
                   <div key={i} className="p-2 bg-gray-900 rounded-lg">
                     <div className="flex items-center justify-between">
                       <span className="text-red-400 text-sm font-medium">{el.type}</span>
-                      <CopyButton text={el.content} field={`section-${idx}-${i}`} />
+                      <CopyButton text={el.content} field={`section-${idx}-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} />
                     </div>
                     <p className="text-white text-sm mt-1">{el.content}</p>
                     <p className="text-gray-500 text-xs mt-1">💡 {el.tips}</p>
@@ -383,7 +383,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
                 <div key={i} className="p-2 bg-gray-900 rounded-lg">
                   <div className="flex items-center justify-between">
                     <span className="text-red-400 text-sm font-medium">{el.type}</span>
-                    <CopyButton text={el.content} field={`cta-${i}`} />
+                    <CopyButton text={el.content} field={`cta-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} />
                   </div>
                   <p className="text-white text-sm mt-1">{el.content}</p>
                   <p className="text-gray-500 text-xs mt-1">💡 {el.tips}</p>
@@ -437,7 +437,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
                       <p className="text-gray-400 text-sm">Style: {item.style}</p>
                       <p className="text-gray-500 text-sm">Placement: {item.placement}</p>
                     </div>
-                    <CopyButton text={item.text} field={`text-${i}`} />
+                    <CopyButton text={item.text} field={`text-${i}`} copyToClipboard={copyToClipboard} copiedField={copiedField} />
                   </div>
                 </div>
               ))}
@@ -520,7 +520,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
               <div className="p-4 bg-gray-900 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="text-white font-semibold">Video Description</h4>
-                  <CopyButton text={result.description?.full} field="description" />
+                  <CopyButton text={result.description?.full} field="description" copyToClipboard={copyToClipboard} copiedField={copiedField} />
                 </div>
                 <pre className="text-gray-300 text-sm whitespace-pre-wrap font-sans">{result.description?.full}</pre>
                 <div className="mt-4 pt-4 border-t border-gray-800">
@@ -537,7 +537,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
               <div className="p-4 bg-gray-900 rounded-lg">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-white font-semibold">Video Tags</h4>
-                  <CopyButton text={result.tags?.list?.join(', ')} field="tags" />
+                  <CopyButton text={result.tags?.list?.join(', ')} field="tags" copyToClipboard={copyToClipboard} copiedField={copiedField} />
                 </div>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {result.tags?.list?.map((tag, i) => (
@@ -578,7 +578,7 @@ function ResultsDisplay({ slug, result, copyToClipboard, copiedField }) {
               <div className="p-4 bg-gray-900 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="text-white font-semibold">Pinned Comment</h4>
-                  <CopyButton text={result.pinnedComment?.text} field="pinned" />
+                  <CopyButton text={result.pinnedComment?.text} field="pinned" copyToClipboard={copyToClipboard} copiedField={copiedField} />
                 </div>
                 <pre className="text-gray-300 text-sm whitespace-pre-wrap font-sans">{result.pinnedComment?.text}</pre>
                 <div className="mt-4 pt-4 border-t border-gray-800">
