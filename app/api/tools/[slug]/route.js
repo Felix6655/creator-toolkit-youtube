@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 import { toolsConfig } from '@/lib/generators'
+import { sendToolUsedEvent } from '@/lib/n8n'
 
 const FREE_DAILY_LIMIT = 3
 
