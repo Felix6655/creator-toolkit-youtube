@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { sendUserSignedUpEvent } from '@/lib/n8n'
 
 // Create admin client for server operations
 const createAdminClient = () => {
@@ -31,6 +32,8 @@ export async function POST(request) {
     if (!adminClient) {
       // If no service role key, try with regular client
       // Profile might already exist from trigger
+      // Still send signup event to n8n
+      sendUserSignedUpEvent(userId, email).catch(() => {})
       return NextResponse.json({ success: true, message: 'Profile will be created via trigger' })
     }
     
@@ -51,6 +54,9 @@ export async function POST(request) {
         return NextResponse.json({ error: error.message }, { status: 500 })
       }
     }
+    
+    // Send n8n webhook event for new signup (non-blocking)
+    sendUserSignedUpEvent(userId, email).catch(() => {})
     
     return NextResponse.json({ success: true })
   } catch (error) {
