@@ -17,6 +17,62 @@ A production-ready SaaS application for YouTube creators with tools to generate 
 - **Styling**: Tailwind CSS + shadcn/ui
 - **Database & Auth**: Supabase (Postgres + Auth)
 - **Deployment**: Vercel-ready
+- **Automation**: n8n webhook integration
+
+## SEO Features
+
+This app includes full SEO support:
+
+- ✅ **sitemap.xml** - Auto-generated at `/sitemap.xml` with all routes
+- ✅ **robots.txt** - Configured at `/robots.txt` with sitemap reference
+- ✅ **OpenGraph metadata** - Full OG tags for social sharing
+- ✅ **Twitter cards** - Summary large image cards
+- ✅ **Meta keywords** - Relevant keywords for search engines
+- ✅ **Canonical URLs** - Proper canonical URL configuration
+
+### SEO Files
+
+- `/app/app/layout.js` - Global metadata configuration
+- `/app/app/sitemap.js` - Dynamic sitemap generation
+- `/app/app/robots.js` - Robots.txt configuration
+- `/public/og.png` - OpenGraph image (replace with your branded image)
+
+## n8n Webhook Integration
+
+The app sends automated events to n8n for workflow automation.
+
+### Setup n8n Integration
+
+1. **Create a Webhook in n8n**:
+   - Add a "Webhook" node in your n8n workflow
+   - Set method to POST
+   - Copy the webhook URL
+
+2. **Add to Environment Variables**:
+   ```env
+   N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/creator-toolkit
+   ```
+
+3. **Events Sent**:
+
+   | Event | Trigger | Payload |
+   |-------|---------|---------|
+   | `tool_used` | After content generation | `{ event, tool, user_id, timestamp }` |
+   | `user_signed_up` | New user registration | `{ event, email, user_id, timestamp }` |
+   | `user_upgraded_pro` | Pro plan upgrade | `{ event, user_id, email, plan, timestamp }` |
+
+### Example n8n Workflows
+
+- **Slack notification** on new signups
+- **Email welcome sequence** trigger
+- **Analytics tracking** to Google Sheets
+- **CRM integration** (HubSpot, Pipedrive)
+
+### Notes
+
+- Events are sent asynchronously (non-blocking)
+- App works normally if `N8N_WEBHOOK_URL` is not set
+- Webhook failures are logged but don't affect the app
 
 ## Setup Instructions
 
@@ -39,10 +95,16 @@ A production-ready SaaS application for YouTube creators with tools to generate 
 Create a `.env.local` file (or add to `.env`):
 
 ```env
+# Supabase
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key  # Optional but recommended
+
+# App URL (for SEO and redirects)
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# n8n Webhook (optional)
+N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/creator-toolkit
 ```
 
 ### 4. Local Development
@@ -65,7 +127,8 @@ Open [http://localhost:3000](http://localhost:3000)
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `SUPABASE_SERVICE_ROLE_KEY`
-   - `NEXT_PUBLIC_APP_URL` (set to your Vercel domain)
+   - `NEXT_PUBLIC_APP_URL` (set to your Vercel domain, e.g., `https://your-app.vercel.app`)
+   - `N8N_WEBHOOK_URL` (optional)
 
 ## Auth Verification Checklist
 
@@ -124,10 +187,10 @@ SELECT * FROM usage_daily;
   /app
     /api
       /auth
-        /post-signup/route.js    # Profile creation after signup
-        /update-plan/route.js    # Plan upgrade/downgrade
+        /post-signup/route.js    # Profile creation + n8n signup event
+        /update-plan/route.js    # Plan upgrade + n8n upgrade event
       /tools
-        /[slug]/route.js         # Tool generation endpoints
+        /[slug]/route.js         # Tool generation + n8n tool_used event
     /dashboard/page.js           # Protected dashboard
     /login/page.js               # Auth page
     /pricing/page.js             # Pricing with plan toggle
@@ -135,10 +198,15 @@ SELECT * FROM usage_daily;
       /page.js                   # Tools listing
       /[slug]/page.js            # Individual tool UI
     /page.js                     # Landing page
-    /layout.js                   # Root layout
+    /layout.js                   # Root layout + SEO metadata
+    /sitemap.js                  # Dynamic sitemap
+    /robots.js                   # Robots.txt config
   /lib
     /supabase.js                 # Supabase client
     /generators.js               # Template generators
+    /n8n.js                      # n8n webhook helper
+  /public
+    /og.png                      # OpenGraph image
   /sql
     /init.sql                    # Database setup script
 ```
@@ -163,6 +231,7 @@ SELECT * FROM usage_daily;
 - Service role key is never exposed to client
 - All inputs validated on server
 - Usage limits enforced server-side
+- n8n webhook URL kept server-side only
 
 ## License
 
