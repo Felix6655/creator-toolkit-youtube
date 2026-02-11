@@ -128,6 +128,9 @@ export async function POST(request, { params }) {
         })
     }
     
+    // Send n8n webhook event (non-blocking)
+    sendToolUsedEvent(slug, user?.id).catch(() => {})
+    
     return NextResponse.json({ 
       output,
       remainingUses,
