@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
+import { sendUserUpgradedProEvent } from '@/lib/n8n'
 
 export async function POST(request) {
   try {
@@ -43,6 +44,12 @@ export async function POST(request) {
     if (error) {
       console.error('Error updating plan:', error)
       return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+    
+    // Send n8n webhook event for Pro upgrade (non-blocking)
+    // This is a placeholder for future Stripe integration
+    if (plan === 'pro') {
+      sendUserUpgradedProEvent(user.id, user.email).catch(() => {})
     }
     
     return NextResponse.json({ success: true, plan })
